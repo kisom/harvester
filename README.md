@@ -1,36 +1,8 @@
 # harvester
 
-FIXME: description
+This will eventually be a program that fetches emails from IMAP and
+stashes them in a Postgres database. There are a few ideas I have
+for where this will go, but this component will mostly be a long-running
+process for feeding emails to the database.
 
-## Installation
 
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar harvester-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
