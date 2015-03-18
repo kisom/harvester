@@ -38,7 +38,9 @@
 (defn -main
   "If run, do a collection."
   [& args]
-  (run))
+  (map (fn [_ v]
+         (deref v))
+       (run)))
 
 
 
