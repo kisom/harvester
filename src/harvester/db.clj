@@ -22,42 +22,39 @@
 
 (defn email-stored?
   [db email]
-  (not
-   (zero?
-    (:count
-     (first
-      (jdbc/query db
-                  (-> (sql-fn/select :%count.*)
-                      (sql-fn/from   :raw-mail)
-                      (sql-fn/where [:= :mid (:mid email)])
-                      sql/format)))))))
+  (let [selector (-> (sql-fn/select :%count.*)
+                     (sql-fn/from   :raw-mail)
+                     (sql-fn/where [:= :mid (:mid email)])
+                     sql/format)]
+    (not
+     (zero?
+      (:count
+       (first
+        (jdbc/query db selector)))))))
 
 (defn filter-stored
   [db messages]
-  (filter #(not (email-stored? db %))
-          messages))
+  (filter #(not (email-stored? db %)) messages))
 
 (defn store-message
   [conn msg]
-  (let [from (keyword "\"from\"")
-        to   (keyword "\"to\"")]
-    (jdbc/insert! conn
-                  :raw_mail
-                  {:mid          (:mid msg)
-                   :sent         (:date-sent msg)
-                   :received     (:date-received msg)
-                   :addr_from    (:from msg)
-                   :content_type (:content-type msg)
-                   :multipart    (:multipart? msg)
-                   :body         (:body msg)
-                   :subject      (:subject msg)
-                   :addr_to      (:to msg)})))
+  (jdbc/insert! conn
+                :raw_mail
+                {:mid          (:mid msg)
+                 :sent         (:date-sent msg)
+                 :received     (:date-received msg)
+                 :addr_from    (:from msg)
+                 :content_type (:content-type msg)
+                 :multipart    (:multipart? msg)
+                 :body         (:body msg)
+                 :subject      (:subject msg)
+                 :addr_to      (:to msg)}))
+
 
 (defn store-messages
   [db messages]
-  (let [messages (filter-stored db messages)]
-    (jdbc/with-db-connection
-      [conn db]
+  (jdbc/with-db-connection
+    [conn db]
+    (let [messages (filter-stored conn messages)]
       (doseq [msg messages]
         (store-message conn msg)))))
-

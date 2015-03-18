@@ -11,6 +11,5 @@
                  [jarohen/nomad "0.7.0"]
                  [byte-streams "0.2.0-alpha8"]]
   :main ^:skip-aot harvester.core
-  :plugins [[lein-cljsbuild "1.0.5"]]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

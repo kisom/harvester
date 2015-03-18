@@ -5,6 +5,13 @@
             [clj-time.coerce]
             [clj-time.format :as date-format]))
 
+;;; this file is a dirty collection of hacks while i tried to figure
+;;; out the interop needed to read emails. I still need to figure out
+;;; how to get the unparsed dump of the email. Also need to watch for
+;;; an update to clojure-mail, which looks to fix the multipart issue.
+
+;;; TODO: delete all this code and rewrite from scratch.
+
 (def date-formatter (date-format/formatter "E MMM d HH:mm:ss z yyyy"))
 
 (defn load-store 

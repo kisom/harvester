@@ -17,9 +17,9 @@
     (mail/retrieve-messages (+creds+) +mail-limit+))))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "If run, do a collection."
   [& args]
-  (println "Hello, World!"))
+  (run))
 
 
 
