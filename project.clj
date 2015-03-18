@@ -7,9 +7,10 @@
                  [org.postgresql/postgresql "9.2-1002-jdbc4"] 
                  [clojure-mail "0.1.6"]
 		 [clj-time "0.9.0"]
+                 [clj-http "1.0.1"]
+                 [cheshire "5.4.0"]
                  [honeysql "0.5.1"]
-                 [jarohen/nomad "0.7.0"]
-                 [byte-streams "0.2.0-alpha8"]]
+                 [jarohen/nomad "0.7.0"]]
   :main ^:skip-aot harvester.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

@@ -108,7 +108,7 @@
 
 (defn retrieve-messages
   [creds n]
-  (map (comp sqlable parse-message)
+  (map parse-message
        (take n
              (filter can-parse
                      (mail/inbox (load-store creds))))))

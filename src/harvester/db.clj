@@ -58,3 +58,24 @@
     (let [messages (filter-stored conn messages)]
       (doseq [msg messages]
         (store-message conn msg)))))
+
+(defn db->message
+  [msg]
+  {:mid           (:mid msg)
+   :date-sent     (:sent msg)
+   :date-received (:received msg)
+   :from          (:addr_from msg)
+   :content-type  (:content_type msg)
+   :multipart?    (:multipart msg)
+   :body          (:body msg)
+   :subject       (:subject msg)
+   :to            (:addr_to msg)})
+
+(defn db->messages
+  [db]
+ (let [selector (-> (sql-fn/select :*)
+                     (sql-fn/from   :raw-mail)
+                     sql/format)]
+   (map db->message
+        (jdbc/query db selector))))
+
